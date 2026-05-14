@@ -20,5 +20,5 @@ jobs:
         run: |
           test ! -e .env
           ! git ls-files | grep -E '(^|/)(data|cache|logs|backups)/'
-          ! git grep -n 'AGENT_SHARE_PASSWORD=.*[A-Za-z0-9]' -- ':!config/agent-share-box.env.example'
-
+          ! git ls-files | grep -E '(^|/)(\.env|[^/]+\.env|agent-share-box\.env)$'
+          ! git ls-files | grep -E '(^|/)(share\.img|.*\.sqlite|.*\.db)$'

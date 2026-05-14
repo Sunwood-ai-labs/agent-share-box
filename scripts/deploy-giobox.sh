@@ -8,6 +8,18 @@ USERNAME="${AGENT_SHARE_USERNAME:-agent}"
 DATA_DIR="${AGENT_SHARE_DATA_DIR:-/srv/agent-share-box}"
 TITLE="${AGENT_SHARE_TITLE:-Agent Share Box}"
 REMOTE_DIR="/tmp/agent-share-box-deploy"
+INCLUDE_PATHS=(
+  .github
+  .gitignore
+  LICENSE
+  README.ja.md
+  README.md
+  SECURITY.md
+  config
+  deploy
+  docs
+  scripts
+)
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -25,12 +37,7 @@ echo "Data dir: ${DATA_DIR}"
 echo "Size cap: ${SIZE}"
 
 ssh "${HOST}" "rm -rf '${REMOTE_DIR}' && mkdir -p '${REMOTE_DIR}'"
-tar \
-  --exclude='.git' \
-  --exclude='tmp' \
-  --exclude='dist' \
-  -C "${PROJECT_ROOT}" \
-  -czf - . | ssh "${HOST}" "tar -xzf - -C '${REMOTE_DIR}'"
+tar -C "${PROJECT_ROOT}" -czf - "${INCLUDE_PATHS[@]}" | ssh "${HOST}" "tar -xzf - -C '${REMOTE_DIR}'"
 
 ssh "${HOST}" \
   "AGENT_SHARE_PASSWORD='${AGENT_SHARE_PASSWORD}' bash '${REMOTE_DIR}/deploy/install.sh' --data-dir '${DATA_DIR}' --size '${SIZE}' --port '${PORT}' --user '${USERNAME}' --title '${TITLE}'"
@@ -51,4 +58,3 @@ AGENT_SHARE_USERNAME=${USERNAME} \\
 AGENT_SHARE_PASSWORD='${AGENT_SHARE_PASSWORD}' \\
 ./scripts/smoke-test.sh
 EOF
-
