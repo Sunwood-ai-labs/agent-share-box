@@ -11,8 +11,9 @@ TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "${TMP_DIR}"' EXIT
 
 STAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+STAMP_SAFE="$(date -u +%Y%m%dT%H%M%SZ)"
 LOCAL_FILE="${TMP_DIR}/agent-share-smoke.md"
-REMOTE_URL="${URL}/smoke/agent-share-smoke.md"
+REMOTE_URL="${URL}/smoke/agent-share-smoke-${STAMP_SAFE}.md"
 DOWNLOADED="${TMP_DIR}/downloaded.md"
 
 cat > "${LOCAL_FILE}" <<EOF
@@ -24,10 +25,9 @@ This Markdown file verifies browser/WebDAV-style upload and download.
 EOF
 
 curl -fsS -u "${AUTH}" "${URL}/" >/dev/null
-curl -fsS -u "${AUTH}" -X MKCOL "${URL}/smoke" >/dev/null || true
+curl -fsS -u "${AUTH}" -X MKCOL "${URL}/smoke" >/dev/null 2>/dev/null || true
 curl -fsS -u "${AUTH}" -T "${LOCAL_FILE}" "${REMOTE_URL}" >/dev/null
 curl -fsS -u "${AUTH}" "${REMOTE_URL}" -o "${DOWNLOADED}"
 cmp "${LOCAL_FILE}" "${DOWNLOADED}"
 
 echo "Smoke test passed: ${REMOTE_URL}"
-

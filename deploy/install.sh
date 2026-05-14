@@ -117,7 +117,8 @@ chmod 0770 "${DATA_DIR}"
 
 echo "[7/8] Starting service"
 systemctl daemon-reload
-systemctl enable --now "${SERVICE_NAME}.service"
+systemctl enable "${SERVICE_NAME}.service"
+systemctl restart "${SERVICE_NAME}.service"
 
 echo "[8/8] Status"
 systemctl --no-pager --full status "${SERVICE_NAME}.service" || true
