@@ -72,3 +72,6 @@ ssh giobox 'systemctl status agent-share-box --no-pager'
 ssh giobox 'df -h /srv/agent-share-box'
 ssh giobox 'journalctl -u agent-share-box -n 80 --no-pager'
 ```
+
+サーバー側・クライアント側に分けた手順と、ローカル Codex Skill の場所は
+[docs/setup.md](docs/setup.md) にまとめています。

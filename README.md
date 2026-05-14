@@ -132,3 +132,6 @@ ssh giobox 'du -sh /srv/agent-share-box'
 
 See [docs/operations.md](docs/operations.md) for backup, resizing, and
 uninstall notes.
+
+See [docs/setup.md](docs/setup.md) for the split server/client setup guide and
+the local Codex Skill entrypoint.
