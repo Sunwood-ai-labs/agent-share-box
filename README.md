@@ -19,6 +19,7 @@ files between PCs.
   `/var/lib/agent-share-box/share.img`
 - Runtime: lightweight Docker image, systemd-managed
 - Browser UI: custom minimal viewer at `/`, copyparty tools at `/browse/`
+- Auth: disabled by default for LAN use; set `AGENT_SHARE_AUTH=1` to require it
 
 The 50 GB size is a good fit for article drafts and image attachments on the
 current giobox root disk. The installer keeps the shared filesystem capped at
@@ -32,8 +33,10 @@ From this repo:
 ./scripts/deploy-giobox.sh
 ```
 
-The script generates a random password unless `AGENT_SHARE_PASSWORD` is already
-set. Credentials are not committed; they are stored on the server in:
+The default deployment is open on the local network. To require Basic auth, set
+`AGENT_SHARE_AUTH=1`; the script generates a random password unless
+`AGENT_SHARE_PASSWORD` is already set. Credentials are not committed; they are
+stored on the server in:
 
 ```text
 /etc/agent-share-box/agent-share-box.env
@@ -49,14 +52,18 @@ AGENT_SHARE_USERNAME=agent \
 ./scripts/deploy-giobox.sh
 ```
 
+Enable auth:
+
+```bash
+AGENT_SHARE_AUTH=1 ./scripts/deploy-giobox.sh
+```
+
 ## Smoke Test
 
 After deploy, use the values printed by the deploy script:
 
 ```bash
 AGENT_SHARE_URL=http://<giobox-ip>:3923 \
-AGENT_SHARE_USERNAME=agent \
-AGENT_SHARE_PASSWORD='<password>' \
 ./scripts/smoke-test.sh
 ```
 
@@ -78,8 +85,7 @@ management UI.
 curl upload:
 
 ```bash
-curl -u agent:'<password>' -T article.md \
-  http://<giobox-ip>:3923/articles/article.md
+curl -T article.md http://<giobox-ip>:3923/articles/article.md
 ```
 
 macOS Finder WebDAV:
@@ -88,16 +94,19 @@ macOS Finder WebDAV:
 http://<giobox-ip>:3923/
 ```
 
-Use "Connect to Server" in Finder, then authenticate with the generated
-username and password.
+Use "Connect to Server" in Finder. No username or password is needed in the
+default LAN mode.
 
 macOS local mount:
 
 ```bash
-AGENT_SHARE_PASSWORD='<password>' ./scripts/configure-macos-mount.sh
+./scripts/configure-macos-mount.sh
 ./scripts/mount-macos.sh
 ./scripts/status-macos.sh
 ```
+
+The helper uses macOS WebDAV mounting directly, so the default LAN mode does
+not need a username or password.
 
 By default this creates a convenient symlink at:
 

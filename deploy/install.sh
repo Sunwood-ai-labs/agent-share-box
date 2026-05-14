@@ -11,6 +11,7 @@ PORT="3923"
 SIZE="50G"
 USERNAME="agent"
 TITLE="Agent Share Box"
+AUTH="${AGENT_SHARE_AUTH:-0}"
 COPYPARTY_SPEC="${COPYPARTY_SPEC:-copyparty==1.20.14}"
 COPYPARTY_VERSION="${COPYPARTY_VERSION:-${COPYPARTY_SPEC#copyparty==}}"
 
@@ -24,8 +25,10 @@ Options:
   --port PORT           HTTP/WebDAV port (default: 3923)
   --user USERNAME       Login username (default: agent)
   --title TITLE         Browser title (default: Agent Share Box)
+  --auth                Require username/password
+  --no-auth             Disable HTTP/WebDAV authentication (default)
 
-Password is read from AGENT_SHARE_PASSWORD.
+Password is read from AGENT_SHARE_PASSWORD when auth is enabled.
 USAGE
 }
 
@@ -41,6 +44,10 @@ while [[ $# -gt 0 ]]; do
       USERNAME="$2"; shift 2 ;;
     --title)
       TITLE="$2"; shift 2 ;;
+    --auth)
+      AUTH="1"; shift ;;
+    --no-auth)
+      AUTH="0"; shift ;;
     -h|--help)
       usage; exit 0 ;;
     *)
@@ -55,7 +62,16 @@ if [[ "$(id -u)" != "0" ]]; then
   exit 1
 fi
 
-: "${AGENT_SHARE_PASSWORD:?AGENT_SHARE_PASSWORD is required}"
+case "${AUTH}" in
+  1|true|TRUE|yes|YES|on|ON)
+    AUTH="1"
+    : "${AGENT_SHARE_PASSWORD:?AGENT_SHARE_PASSWORD is required when auth is enabled}"
+    ;;
+  *)
+    AUTH="0"
+    AGENT_SHARE_PASSWORD="${AGENT_SHARE_PASSWORD:-}"
+    ;;
+esac
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -107,6 +123,7 @@ cat > "${CONFIG_DIR}/agent-share-box.env" <<EOF
 AGENT_SHARE_PORT=${PORT}
 AGENT_SHARE_USERNAME=${USERNAME}
 AGENT_SHARE_PASSWORD=${AGENT_SHARE_PASSWORD}
+AGENT_SHARE_AUTH=${AUTH}
 AGENT_SHARE_DATA_DIR=${DATA_DIR}
 AGENT_SHARE_STATE_DIR=${STATE_DIR}
 AGENT_SHARE_TITLE=${TITLE}

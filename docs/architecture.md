@@ -23,7 +23,8 @@ The service is intentionally small:
 - A single lightweight Docker image contains nginx, Python, and copyparty.
 - `systemd` keeps it running.
 - A loop-mounted ext4 image caps the share at the configured size.
-- Passwords are generated at deploy time and never written to the public repo.
+- Authentication is disabled by default for LAN use. If `AGENT_SHARE_AUTH=1`,
+  passwords are generated at deploy time and never written to the public repo.
 
 The first deployment target is a Proxmox host. Docker keeps the runtime
 replaceable and avoids leaving Python package state directly on the host.

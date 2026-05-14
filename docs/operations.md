@@ -54,16 +54,20 @@ rsync -av --info=progress2 giobox:/srv/agent-share-box/ ./agent-share-backup/
 
 ## Credentials
 
-Credentials live on the server:
+Authentication is disabled by default. Enable it by setting
+`AGENT_SHARE_AUTH=1` and `AGENT_SHARE_PASSWORD` on the server, then restart:
 
 ```bash
 ssh giobox 'sudo cat /etc/agent-share-box/agent-share-box.env'
+ssh giobox 'sudoedit /etc/agent-share-box/agent-share-box.env'
+ssh giobox 'systemctl restart agent-share-box'
 ```
 
-Change `AGENT_SHARE_PASSWORD`, then restart:
+Disable it again by setting:
 
-```bash
-ssh giobox 'systemctl restart agent-share-box'
+```text
+AGENT_SHARE_AUTH=0
+AGENT_SHARE_PASSWORD=
 ```
 
 ## Uninstall

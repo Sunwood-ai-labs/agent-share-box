@@ -16,7 +16,8 @@ copyparty の標準 UI、root URL は WebDAV/curl でも使えます。
 - 容量: 50GB の loop-mounted ext4
 - Runtime: systemd 管理の軽量 Docker コンテナ
 - ブラウザ: `/` は閲覧UI、`/browse/?h` は管理UI
-- 認証情報: `/etc/agent-share-box/agent-share-box.env`
+- 認証: LAN 用にデフォルト無効。必要なら `AGENT_SHARE_AUTH=1`
+- 設定: `/etc/agent-share-box/agent-share-box.env`
 
 本体 repo には設定テンプレートとデプロイスクリプトだけを置きます。
 共有される 50GB の実データは Git 管理しません。
@@ -27,29 +28,30 @@ copyparty の標準 UI、root URL は WebDAV/curl でも使えます。
 ./scripts/deploy-giobox.sh
 ```
 
-パスワードは自動生成され、標準出力に表示されます。再デプロイ時に固定
-したい場合は次のように指定します。
+デフォルトはローカルネットワーク向けの認証なしです。認証を有効にする
+場合は次のように指定します。
 
 ```bash
-AGENT_SHARE_PASSWORD='your-password' ./scripts/deploy-giobox.sh
+AGENT_SHARE_AUTH=1 AGENT_SHARE_PASSWORD='your-password' ./scripts/deploy-giobox.sh
 ```
 
 ## 検証
 
 ```bash
 AGENT_SHARE_URL=http://<giobox-ip>:3923 \
-AGENT_SHARE_USERNAME=agent \
-AGENT_SHARE_PASSWORD='<password>' \
 ./scripts/smoke-test.sh
 ```
 
 ## macOS にマウント
 
 ```bash
-AGENT_SHARE_PASSWORD='<password>' ./scripts/configure-macos-mount.sh
+./scripts/configure-macos-mount.sh
 ./scripts/mount-macos.sh
 ./scripts/status-macos.sh
 ```
+
+helper は macOS の WebDAV マウントを直接使うため、デフォルトの LAN
+モードではユーザー名・パスワード不要でマウントできます。
 
 デフォルトでは次のリンクから使えます。
 
