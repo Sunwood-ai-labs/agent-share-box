@@ -6,6 +6,7 @@
 ssh giobox 'systemctl status agent-share-box --no-pager'
 ssh giobox 'systemctl restart agent-share-box'
 ssh giobox 'journalctl -u agent-share-box -n 100 --no-pager'
+ssh giobox 'docker ps --filter name=agent-share-box'
 ```
 
 ## Storage
@@ -77,4 +78,3 @@ ssh giobox 'systemctl daemon-reload'
 
 To remove data too, unmount `/srv/agent-share-box`, remove the matching fstab
 line, then delete `/var/lib/agent-share-box/share.img`.
-

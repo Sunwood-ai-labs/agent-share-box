@@ -20,6 +20,9 @@ jobs:
           bash -n scripts/status-macos.sh
           bash -n scripts/unmount-macos.sh
           bash -n config/run-copyparty.sh
+          bash -n docker/run-container.sh
+      - name: Build Docker image
+        run: docker build -t agent-share-box:test -f docker/Dockerfile .
       - name: Check public repo hygiene
         run: |
           test ! -e .env

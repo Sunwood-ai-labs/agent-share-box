@@ -3,8 +3,9 @@
 エージェント作業用の軽量ファイル共有です。
 
 Markdown 記事、スクリーンショット、添付画像、生成物などを PC 間で
-共有するために、`copyparty` を systemd サービスとして giobox 上に
-デプロイします。ブラウザ UI と WebDAV/curl の両方で使えます。
+共有するために、`nginx + copyparty` の軽量 Docker コンテナを giobox 上に
+デプロイします。トップは確認・閲覧用のミニマル UI、`/browse/` は
+copyparty の標準 UI、root URL は WebDAV/curl でも使えます。
 
 ## デフォルト構成
 
@@ -13,6 +14,8 @@ Markdown 記事、スクリーンショット、添付画像、生成物など�
 - URL: `http://<giobox-ip>:3923/`
 - 共有データ: `/srv/agent-share-box`
 - 容量: 50GB の loop-mounted ext4
+- Runtime: systemd 管理の軽量 Docker コンテナ
+- ブラウザ: `/` は閲覧UI、`/browse/?h` は管理UI
 - 認証情報: `/etc/agent-share-box/agent-share-box.env`
 
 本体 repo には設定テンプレートとデプロイスクリプトだけを置きます。

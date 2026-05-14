@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agent Share Box</title>
+  <link rel="stylesheet" href="/asb/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Agent Share Box</p>
+      <h1>Shared files</h1>
+    </div>
+    <nav aria-label="Utilities">
+      <a href="/browse/?h">Manage</a>
+      <a href="/browse/?ru">Recent</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="status" aria-live="polite">
+      <div>
+        <span class="label">Path</span>
+        <div id="crumbs" class="crumbs">/</div>
+      </div>
+      <div>
+        <span class="label">Storage</span>
+        <div id="storage">loading...</div>
+      </div>
+    </section>
+
+    <section class="browser" aria-label="File browser">
+      <div class="section-head">
+        <h2>Folders</h2>
+        <span id="folder-count" class="count">0</span>
+      </div>
+      <div id="folders" class="list" data-empty="No folders"></div>
+
+      <div class="section-head files-head">
+        <h2>Files</h2>
+        <span id="file-count" class="count">0</span>
+      </div>
+      <div id="files" class="list" data-empty="No files"></div>
+    </section>
+  </main>
+
+  <template id="row-template">
+    <a class="row">
+      <span class="kind"></span>
+      <span class="name"></span>
+      <span class="meta"></span>
+    </a>
+  </template>
+
+  <script src="/asb/app.js"></script>
+</body>
+</html>
+

@@ -1,24 +1,19 @@
 [Unit]
-Description=Agent Share Box file sharing service
+Description=Agent Share Box Docker file sharing service
 Documentation=https://github.com/Sunwood-ai-labs/agent-share-box
-Wants=network-online.target
-After=network-online.target
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+Requires=docker.service
 RequiresMountsFor=/srv/agent-share-box
 
 [Service]
 Type=simple
-User=agent-share
-Group=agent-share
 EnvironmentFile=/etc/agent-share-box/agent-share-box.env
-ExecStart=/opt/agent-share-box/run-copyparty.sh
+ExecStartPre=-/usr/bin/docker rm -f agent-share-box
+ExecStart=/opt/agent-share-box/run-container.sh
+ExecStop=/usr/bin/docker stop agent-share-box
 Restart=on-failure
 RestartSec=3
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectHome=true
-ProtectSystem=full
-ReadWritePaths=/srv/agent-share-box /var/lib/agent-share-box
 
 [Install]
 WantedBy=multi-user.target
-

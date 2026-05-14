@@ -17,6 +17,7 @@ INCLUDE_PATHS=(
   SECURITY.md
   config
   deploy
+  docker
   docs
   scripts
 )

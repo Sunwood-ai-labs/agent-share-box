@@ -12,6 +12,7 @@ SIZE="50G"
 USERNAME="agent"
 TITLE="Agent Share Box"
 COPYPARTY_SPEC="${COPYPARTY_SPEC:-copyparty==1.20.14}"
+COPYPARTY_VERSION="${COPYPARTY_VERSION:-${COPYPARTY_SPEC#copyparty==}}"
 
 usage() {
   cat <<'USAGE'
@@ -63,7 +64,7 @@ FSTAB_MARKER="# ${SERVICE_NAME} managed share image"
 
 echo "[1/8] Installing OS packages"
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install -y python3-venv python3-pip curl
+DEBIAN_FRONTEND=noninteractive apt-get install -y docker.io curl
 
 echo "[2/8] Creating service account and directories"
 if ! id "${SERVICE_USER}" >/dev/null 2>&1; then
@@ -90,14 +91,16 @@ if ! findmnt -rn --target "${DATA_DIR}" >/dev/null 2>&1; then
   mount -o loop "${IMAGE_PATH}" "${DATA_DIR}"
 fi
 
-echo "[4/8] Installing copyparty runtime"
-python3 -m venv "${INSTALL_DIR}/venv"
-"${INSTALL_DIR}/venv/bin/python" -m pip install --upgrade pip wheel
-"${INSTALL_DIR}/venv/bin/python" -m pip install "${COPYPARTY_SPEC}"
+echo "[4/8] Building Docker image"
+systemctl enable --now docker
+docker build \
+  --build-arg "COPYPARTY_VERSION=${COPYPARTY_VERSION}" \
+  -t "${SERVICE_NAME}:local" \
+  -f "${PROJECT_ROOT}/docker/Dockerfile" \
+  "${PROJECT_ROOT}"
 
 echo "[5/8] Installing service files"
-install -m 0755 "${PROJECT_ROOT}/config/run-copyparty.sh" "${INSTALL_DIR}/run-copyparty.sh"
-install -m 0644 "${PROJECT_ROOT}/config/agent-share-box-head.html" "${INSTALL_DIR}/agent-share-box-head.html"
+install -m 0755 "${PROJECT_ROOT}/docker/run-container.sh" "${INSTALL_DIR}/run-container.sh"
 install -m 0644 "${PROJECT_ROOT}/config/agent-share-box.service" "/etc/systemd/system/${SERVICE_NAME}.service"
 
 cat > "${CONFIG_DIR}/agent-share-box.env" <<EOF

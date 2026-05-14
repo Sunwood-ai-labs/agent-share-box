@@ -2,10 +2,12 @@
 
 Lightweight file sharing for agent workflows.
 
-This repo deploys a small [copyparty](https://github.com/9001/copyparty)-based
-share that works from browsers, curl, WebDAV clients, and automation scripts.
-It is meant for Markdown articles, screenshots, generated images, and other
-handoff files between PCs.
+This repo deploys a small Dockerized
+[copyparty](https://github.com/9001/copyparty)-based share behind nginx. The
+browser root is a minimal read-only file dashboard, while `/browse/` exposes the
+full copyparty interface and WebDAV/curl clients keep using the root URL. It is
+meant for Markdown articles, screenshots, generated images, and other handoff
+files between PCs.
 
 ## Default Deployment
 
@@ -15,7 +17,8 @@ handoff files between PCs.
 - Data path: `/srv/agent-share-box`
 - Quota shape: 50 GB loop-mounted ext4 image at
   `/var/lib/agent-share-box/share.img`
-- Runtime: Python venv + systemd, no Docker required
+- Runtime: lightweight Docker image, systemd-managed
+- Browser UI: custom minimal viewer at `/`, copyparty tools at `/browse/`
 
 The 50 GB size is a good fit for article drafts and image attachments on the
 current giobox root disk. The installer keeps the shared filesystem capped at
@@ -67,6 +70,10 @@ Browser:
 ```text
 http://<giobox-ip>:3923/
 ```
+
+The top page is intentionally minimal for checking and reading files. Use
+`http://<giobox-ip>:3923/browse/?h` when you need copyparty's full upload and
+management UI.
 
 curl upload:
 

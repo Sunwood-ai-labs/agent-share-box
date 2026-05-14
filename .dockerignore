@@ -1,0 +1,11 @@
+.git
+.DS_Store
+.env
+*.env
+tmp/
+dist/
+data/
+cache/
+logs/
+backups/
+
