@@ -15,6 +15,10 @@ jobs:
           bash -n scripts/deploy-giobox.sh
           bash -n scripts/smoke-test.sh
           bash -n scripts/quota-report.sh
+          bash -n scripts/configure-macos-mount.sh
+          bash -n scripts/mount-macos.sh
+          bash -n scripts/status-macos.sh
+          bash -n scripts/unmount-macos.sh
           bash -n config/run-copyparty.sh
       - name: Check public repo hygiene
         run: |

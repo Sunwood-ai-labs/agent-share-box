@@ -84,6 +84,26 @@ http://<giobox-ip>:3923/
 Use "Connect to Server" in Finder, then authenticate with the generated
 username and password.
 
+macOS local mount:
+
+```bash
+AGENT_SHARE_PASSWORD='<password>' ./scripts/configure-macos-mount.sh
+./scripts/mount-macos.sh
+./scripts/status-macos.sh
+```
+
+By default this creates a convenient symlink at:
+
+```text
+~/agent-share-box -> /Volumes/<giobox-ip>
+```
+
+Unmount when needed:
+
+```bash
+./scripts/unmount-macos.sh
+```
+
 ## Operations
 
 ```bash
@@ -95,4 +115,3 @@ ssh giobox 'du -sh /srv/agent-share-box'
 
 See [docs/operations.md](docs/operations.md) for backup, resizing, and
 uninstall notes.
-

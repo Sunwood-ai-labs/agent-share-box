@@ -40,6 +40,26 @@ AGENT_SHARE_PASSWORD='<password>' \
 ./scripts/smoke-test.sh
 ```
 
+## macOS にマウント
+
+```bash
+AGENT_SHARE_PASSWORD='<password>' ./scripts/configure-macos-mount.sh
+./scripts/mount-macos.sh
+./scripts/status-macos.sh
+```
+
+デフォルトでは次のリンクから使えます。
+
+```text
+~/agent-share-box -> /Volumes/<giobox-ip>
+```
+
+解除:
+
+```bash
+./scripts/unmount-macos.sh
+```
+
 ## 運用確認
 
 ```bash
@@ -47,4 +67,3 @@ ssh giobox 'systemctl status agent-share-box --no-pager'
 ssh giobox 'df -h /srv/agent-share-box'
 ssh giobox 'journalctl -u agent-share-box -n 80 --no-pager'
 ```
-
