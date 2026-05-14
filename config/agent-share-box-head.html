@@ -1,16 +1,16 @@
 <style>
 :root {
-  --asb-bg: #181714;
-  --asb-panel: #23221e;
-  --asb-panel-2: #2b2924;
-  --asb-line: rgba(239, 220, 177, 0.18);
-  --asb-line-strong: rgba(239, 220, 177, 0.34);
-  --asb-text: #f3ead8;
-  --asb-muted: #b5a990;
-  --asb-brass: #f1c75b;
-  --asb-teal: #7fd6cc;
-  --asb-rose: #ff6fae;
-  --asb-ink: #11100e;
+  --asb-bg: #141412;
+  --asb-surface: #1b1b18;
+  --asb-surface-soft: #20201d;
+  --asb-line: rgba(230, 222, 204, 0.14);
+  --asb-line-strong: rgba(230, 222, 204, 0.24);
+  --asb-text: #ece5d7;
+  --asb-muted: #928a78;
+  --asb-link: #d9bd73;
+  --asb-file: #e5ded0;
+  --asb-md: #c9d8cd;
+  --asb-focus: #9bc7bd;
 }
 
 * {
@@ -19,45 +19,24 @@
 
 html {
   min-height: 100%;
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 44px 44px,
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px) 0 0 / 44px 44px,
-    radial-gradient(circle at 74% 12%, rgba(127, 214, 204, 0.11), transparent 28rem),
-    linear-gradient(135deg, #151410 0%, #201e1a 48%, #171615 100%);
+  background: var(--asb-bg);
 }
 
 body {
   color: var(--asb-text);
-  background: transparent !important;
+  background: var(--asb-bg) !important;
   font-family: "Avenir Next", "Gill Sans", "Segoe UI", sans-serif;
   letter-spacing: 0;
 }
 
-body::before {
-  content: "AGENT SHARE BOX";
-  position: fixed;
-  right: 1.2rem;
-  top: 0.9rem;
-  z-index: -1;
-  color: rgba(241, 199, 91, 0.08);
-  font-family: "Iowan Old Style", "Charter", Georgia, serif;
-  font-size: clamp(2.8rem, 8vw, 8.8rem);
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  line-height: 0.9;
-  pointer-events: none;
-}
-
 a {
-  color: var(--asb-brass);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
-  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  color: var(--asb-link);
+  text-decoration: none;
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--asb-teal);
+  color: var(--asb-focus);
 }
 
 button,
@@ -76,11 +55,11 @@ a[href="#v=mkdir"],
 a[href="#v=new_md"],
 a[href="#v=cfg"],
 a[href="#v=msg"] {
-  border: 1px solid rgba(241, 199, 91, 0.38) !important;
-  border-radius: 6px !important;
-  background: linear-gradient(180deg, #3a3324, #27231d) !important;
+  border: 1px solid var(--asb-line-strong) !important;
+  border-radius: 4px !important;
+  background: transparent !important;
   color: var(--asb-text) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  box-shadow: none !important;
 }
 
 button:hover,
@@ -92,85 +71,83 @@ a[href="#v=mkdir"]:hover,
 a[href="#v=new_md"]:hover,
 a[href="#v=cfg"]:hover,
 a[href="#v=msg"]:hover {
-  border-color: var(--asb-teal) !important;
-  transform: translateY(-1px);
+  border-color: var(--asb-focus) !important;
+  background: rgba(155, 199, 189, 0.08) !important;
 }
 
 input,
 textarea {
-  border: 1px solid rgba(127, 214, 204, 0.35) !important;
-  border-radius: 6px !important;
-  background: rgba(17, 16, 14, 0.82) !important;
+  border: 1px solid var(--asb-line-strong) !important;
+  border-radius: 4px !important;
+  background: var(--asb-surface) !important;
   color: var(--asb-text) !important;
 }
 
 input:focus,
-textarea:focus {
-  outline: 2px solid rgba(241, 199, 91, 0.55) !important;
+textarea:focus,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(155, 199, 189, 0.55) !important;
   outline-offset: 2px;
 }
 
 #ops,
-#opctl,
-#tree,
-#files,
-.logue,
-table {
-  border-color: var(--asb-line) !important;
+#opctl {
+  margin: 0.55rem 1rem 0.8rem !important;
+  padding: 0.45rem 0.55rem !important;
+  border: 1px solid var(--asb-line) !important;
+  border-radius: 4px !important;
+  background: var(--asb-surface) !important;
+  box-shadow: none !important;
 }
 
-#ops,
-#opctl {
-  margin: 0.8rem 1.4rem 1.1rem !important;
-  padding: 0.65rem 0.85rem !important;
-  border: 1px solid var(--asb-line) !important;
-  border-radius: 8px !important;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015)),
-    var(--asb-panel) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26);
+#ops a,
+#opctl a {
+  opacity: 0.82;
+}
+
+#ops a:hover,
+#opctl a:hover {
+  opacity: 1;
 }
 
 #tree {
-  padding: 0.8rem 0.7rem !important;
+  padding: 0.65rem 0.55rem !important;
   border-right: 1px solid var(--asb-line) !important;
-  background:
-    linear-gradient(180deg, rgba(241, 199, 91, 0.08), transparent 18rem),
-    rgba(19, 18, 16, 0.74) !important;
-  box-shadow: 16px 0 34px rgba(0, 0, 0, 0.16);
+  background: #11110f !important;
+  box-shadow: none !important;
 }
 
 #tree a {
-  border-radius: 4px;
-  padding: 0.08rem 0.22rem;
+  border-radius: 3px;
+  padding: 0.06rem 0.18rem;
 }
 
 #tree a:hover {
-  background: rgba(127, 214, 204, 0.13);
+  background: rgba(155, 199, 189, 0.08);
 }
 
 #tree .sel,
 #tree a.sel,
 #tree a[aria-current="page"] {
-  background: var(--asb-brass) !important;
-  color: var(--asb-ink) !important;
+  background: rgba(217, 189, 115, 0.18) !important;
+  color: var(--asb-text) !important;
 }
 
 table {
-  margin-top: 1.2rem !important;
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-  background: rgba(35, 34, 30, 0.72) !important;
+  margin-top: 0.75rem !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
   border: 1px solid var(--asb-line) !important;
-  border-radius: 8px !important;
-  overflow: hidden;
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 th {
-  background: rgba(17, 16, 14, 0.78) !important;
-  color: var(--asb-text) !important;
-  font-size: 0.88rem;
+  background: var(--asb-surface) !important;
+  color: var(--asb-muted) !important;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -178,26 +155,30 @@ th {
 td,
 th {
   border-color: var(--asb-line) !important;
-  padding: 0.38rem 0.62rem !important;
+  padding: 0.34rem 0.58rem !important;
 }
 
 tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.025) !important;
+  background: rgba(255, 255, 255, 0.018) !important;
 }
 
 tr:hover td {
-  background: rgba(127, 214, 204, 0.10) !important;
+  background: rgba(155, 199, 189, 0.055) !important;
 }
 
 td a[href$="/"] {
-  color: var(--asb-brass) !important;
-  font-weight: 700;
+  color: var(--asb-link) !important;
+  font-weight: 650;
 }
 
 td a[href*=".md"],
 td a[href*="?doc="],
 td:has(a[href*="?doc="]) {
-  color: var(--asb-rose) !important;
+  color: var(--asb-md) !important;
+}
+
+td a:not([href$="/"]):not([href*="?zip"]):not([href*="?doc="]) {
+  color: var(--asb-file) !important;
 }
 
 #srv_info,
@@ -205,14 +186,15 @@ td:has(a[href*="?doc="]) {
 #srv {
   color: var(--asb-muted) !important;
   border-top: 1px solid var(--asb-line) !important;
-  background: rgba(17, 16, 14, 0.78) !important;
+  background: var(--asb-bg) !important;
 }
 
 h1,
 h2,
 h3 {
   color: var(--asb-text) !important;
-  font-family: "Iowan Old Style", "Charter", Georgia, serif;
+  font-family: "Avenir Next", "Gill Sans", "Segoe UI", sans-serif;
+  font-weight: 650;
   letter-spacing: 0;
 }
 
@@ -220,20 +202,16 @@ h1::after,
 h2::after {
   content: "";
   display: block;
-  width: 4.6rem;
-  height: 2px;
-  margin-top: 0.4rem;
-  background: linear-gradient(90deg, var(--asb-brass), var(--asb-teal));
+  width: 2rem;
+  height: 1px;
+  margin-top: 0.38rem;
+  background: var(--asb-focus);
 }
 
 @media (max-width: 760px) {
-  body::before {
-    display: none;
-  }
-
   #ops,
   #opctl {
-    margin-inline: 0.55rem !important;
+    margin-inline: 0.5rem !important;
     overflow-x: auto;
   }
 
