@@ -8,6 +8,7 @@ set -euo pipefail
 : "${AGENT_SHARE_STATE_DIR:=/var/lib/agent-share-box}"
 : "${AGENT_SHARE_TITLE:=Agent Share Box}"
 : "${AGENT_SHARE_ALLOWED_IPS:=}"
+: "${AGENT_SHARE_HEAD_FILE:=/opt/agent-share-box/agent-share-box-head.html}"
 
 mkdir -p "${AGENT_SHARE_STATE_DIR}/hist"
 CONFIG_FILE="${AGENT_SHARE_STATE_DIR}/copyparty.conf"
@@ -22,7 +23,15 @@ cat > "${CONFIG_FILE}" <<EOF
   p: ${AGENT_SHARE_PORT}
   hist: ${AGENT_SHARE_STATE_DIR}/hist
   name: ${AGENT_SHARE_TITLE}
+  doctitle: ${AGENT_SHARE_TITLE}
+  bname: ${AGENT_SHARE_TITLE}
 EOF
+
+if [[ -f "${AGENT_SHARE_HEAD_FILE}" ]]; then
+  cat >> "${CONFIG_FILE}" <<EOF
+  html-head: @${AGENT_SHARE_HEAD_FILE}
+EOF
+fi
 
 if [[ -n "${AGENT_SHARE_ALLOWED_IPS}" ]]; then
   cat >> "${CONFIG_FILE}" <<EOF

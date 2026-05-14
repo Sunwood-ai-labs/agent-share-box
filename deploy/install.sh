@@ -97,6 +97,7 @@ python3 -m venv "${INSTALL_DIR}/venv"
 
 echo "[5/8] Installing service files"
 install -m 0755 "${PROJECT_ROOT}/config/run-copyparty.sh" "${INSTALL_DIR}/run-copyparty.sh"
+install -m 0644 "${PROJECT_ROOT}/config/agent-share-box-head.html" "${INSTALL_DIR}/agent-share-box-head.html"
 install -m 0644 "${PROJECT_ROOT}/config/agent-share-box.service" "/etc/systemd/system/${SERVICE_NAME}.service"
 
 cat > "${CONFIG_DIR}/agent-share-box.env" <<EOF

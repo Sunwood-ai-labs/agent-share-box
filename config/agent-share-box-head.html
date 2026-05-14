@@ -1,0 +1,261 @@
+<style>
+:root {
+  --asb-bg: #181714;
+  --asb-panel: #23221e;
+  --asb-panel-2: #2b2924;
+  --asb-line: rgba(239, 220, 177, 0.18);
+  --asb-line-strong: rgba(239, 220, 177, 0.34);
+  --asb-text: #f3ead8;
+  --asb-muted: #b5a990;
+  --asb-brass: #f1c75b;
+  --asb-teal: #7fd6cc;
+  --asb-rose: #ff6fae;
+  --asb-ink: #11100e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px) 0 0 / 44px 44px,
+    radial-gradient(circle at 74% 12%, rgba(127, 214, 204, 0.11), transparent 28rem),
+    linear-gradient(135deg, #151410 0%, #201e1a 48%, #171615 100%);
+}
+
+body {
+  color: var(--asb-text);
+  background: transparent !important;
+  font-family: "Avenir Next", "Gill Sans", "Segoe UI", sans-serif;
+  letter-spacing: 0;
+}
+
+body::before {
+  content: "AGENT SHARE BOX";
+  position: fixed;
+  right: 1.2rem;
+  top: 0.9rem;
+  z-index: -1;
+  color: rgba(241, 199, 91, 0.08);
+  font-family: "Iowan Old Style", "Charter", Georgia, serif;
+  font-size: clamp(2.8rem, 8vw, 8.8rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 0.9;
+  pointer-events: none;
+}
+
+a {
+  color: var(--asb-brass);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--asb-teal);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+input[type="submit"],
+input[type="button"],
+a[href="#v=up2k"],
+a[href="#v=bup"],
+a[href="#v=mkdir"],
+a[href="#v=new_md"],
+a[href="#v=cfg"],
+a[href="#v=msg"] {
+  border: 1px solid rgba(241, 199, 91, 0.38) !important;
+  border-radius: 6px !important;
+  background: linear-gradient(180deg, #3a3324, #27231d) !important;
+  color: var(--asb-text) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+a[href="#v=up2k"]:hover,
+a[href="#v=bup"]:hover,
+a[href="#v=mkdir"]:hover,
+a[href="#v=new_md"]:hover,
+a[href="#v=cfg"]:hover,
+a[href="#v=msg"]:hover {
+  border-color: var(--asb-teal) !important;
+  transform: translateY(-1px);
+}
+
+input,
+textarea {
+  border: 1px solid rgba(127, 214, 204, 0.35) !important;
+  border-radius: 6px !important;
+  background: rgba(17, 16, 14, 0.82) !important;
+  color: var(--asb-text) !important;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid rgba(241, 199, 91, 0.55) !important;
+  outline-offset: 2px;
+}
+
+#ops,
+#opctl,
+#tree,
+#files,
+.logue,
+table {
+  border-color: var(--asb-line) !important;
+}
+
+#ops,
+#opctl {
+  margin: 0.8rem 1.4rem 1.1rem !important;
+  padding: 0.65rem 0.85rem !important;
+  border: 1px solid var(--asb-line) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015)),
+    var(--asb-panel) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.26);
+}
+
+#tree {
+  padding: 0.8rem 0.7rem !important;
+  border-right: 1px solid var(--asb-line) !important;
+  background:
+    linear-gradient(180deg, rgba(241, 199, 91, 0.08), transparent 18rem),
+    rgba(19, 18, 16, 0.74) !important;
+  box-shadow: 16px 0 34px rgba(0, 0, 0, 0.16);
+}
+
+#tree a {
+  border-radius: 4px;
+  padding: 0.08rem 0.22rem;
+}
+
+#tree a:hover {
+  background: rgba(127, 214, 204, 0.13);
+}
+
+#tree .sel,
+#tree a.sel,
+#tree a[aria-current="page"] {
+  background: var(--asb-brass) !important;
+  color: var(--asb-ink) !important;
+}
+
+table {
+  margin-top: 1.2rem !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  background: rgba(35, 34, 30, 0.72) !important;
+  border: 1px solid var(--asb-line) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+}
+
+th {
+  background: rgba(17, 16, 14, 0.78) !important;
+  color: var(--asb-text) !important;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+td,
+th {
+  border-color: var(--asb-line) !important;
+  padding: 0.38rem 0.62rem !important;
+}
+
+tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.025) !important;
+}
+
+tr:hover td {
+  background: rgba(127, 214, 204, 0.10) !important;
+}
+
+td a[href$="/"] {
+  color: var(--asb-brass) !important;
+  font-weight: 700;
+}
+
+td a[href*=".md"],
+td a[href*="?doc="],
+td:has(a[href*="?doc="]) {
+  color: var(--asb-rose) !important;
+}
+
+#srv_info,
+.srv_info,
+#srv {
+  color: var(--asb-muted) !important;
+  border-top: 1px solid var(--asb-line) !important;
+  background: rgba(17, 16, 14, 0.78) !important;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--asb-text) !important;
+  font-family: "Iowan Old Style", "Charter", Georgia, serif;
+  letter-spacing: 0;
+}
+
+h1::after,
+h2::after {
+  content: "";
+  display: block;
+  width: 4.6rem;
+  height: 2px;
+  margin-top: 0.4rem;
+  background: linear-gradient(90deg, var(--asb-brass), var(--asb-teal));
+}
+
+@media (max-width: 760px) {
+  body::before {
+    display: none;
+  }
+
+  #ops,
+  #opctl {
+    margin-inline: 0.55rem !important;
+    overflow-x: auto;
+  }
+
+  table {
+    width: calc(100vw - 1rem) !important;
+    max-width: calc(100vw - 1rem) !important;
+    margin-left: 0.5rem !important;
+    font-size: 0.84rem;
+  }
+
+  td,
+  th {
+    padding: 0.32rem 0.44rem !important;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3),
+  th:nth-child(4),
+  td:nth-child(4),
+  th:nth-child(5),
+  td:nth-child(5) {
+    display: none;
+  }
+}
+</style>
