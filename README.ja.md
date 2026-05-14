@@ -15,7 +15,7 @@ copyparty の標準 UI、root URL は WebDAV/curl でも使えます。
 - 共有データ: `/srv/agent-share-box`
 - 容量: 50GB の loop-mounted ext4
 - Runtime: systemd 管理の軽量 Docker コンテナ
-- ブラウザ: `/` は閲覧UI、`/browse/?h` は管理UI
+- ブラウザ: `/` は閲覧UI、`/manage` は管理UI、`/recent` は最近のファイル
 - 認証: LAN 用にデフォルト無効。必要なら `AGENT_SHARE_AUTH=1`
 - 設定: `/etc/agent-share-box/agent-share-box.env`
 

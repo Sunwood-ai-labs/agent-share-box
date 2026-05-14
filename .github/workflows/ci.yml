@@ -21,6 +21,12 @@ jobs:
           bash -n scripts/unmount-macos.sh
           bash -n config/run-copyparty.sh
           bash -n docker/run-container.sh
+      - name: Validate browser JavaScript
+        run: |
+          node --check docker/ui/app.js
+          node --check docker/ui/article.js
+          node --check docker/ui/manage.js
+          node --check docker/ui/recent.js
       - name: Build Docker image
         run: docker build -t agent-share-box:test -f docker/Dockerfile .
       - name: Check public repo hygiene

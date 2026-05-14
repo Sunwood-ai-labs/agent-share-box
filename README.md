@@ -18,7 +18,8 @@ files between PCs.
 - Quota shape: 50 GB loop-mounted ext4 image at
   `/var/lib/agent-share-box/share.img`
 - Runtime: lightweight Docker image, systemd-managed
-- Browser UI: custom minimal viewer at `/`, copyparty tools at `/browse/`
+- Browser UI: custom minimal viewer at `/`, manager at `/manage`, recent at
+  `/recent`, copyparty tools at `/party/`
 - Auth: disabled by default for LAN use; set `AGENT_SHARE_AUTH=1` to require it
 
 The 50 GB size is a good fit for article drafts and image attachments on the
@@ -79,8 +80,8 @@ http://<giobox-ip>:3923/
 ```
 
 The top page is intentionally minimal for checking and reading files. Use
-`http://<giobox-ip>:3923/browse/?h` when you need copyparty's full upload and
-management UI.
+`http://<giobox-ip>:3923/manage` for simple uploads and folder creation, or
+`http://<giobox-ip>:3923/party/?h` for copyparty's advanced UI.
 
 curl upload:
 

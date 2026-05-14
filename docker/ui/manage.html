@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage - Agent Share Box</title>
+  <link rel="stylesheet" href="/asb/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Agent Share Box</p>
+      <h1>Manage files</h1>
+    </div>
+    <nav aria-label="Utilities">
+      <a href="/">Files</a>
+      <a href="/recent">Recent</a>
+      <a href="/party/?h">Advanced</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="status" aria-live="polite">
+      <div>
+        <span class="label">Target folder</span>
+        <div id="crumbs" class="crumbs">/</div>
+      </div>
+      <div>
+        <span class="label">Storage</span>
+        <div id="storage">loading...</div>
+      </div>
+    </section>
+
+    <section class="panel-grid">
+      <div class="panel">
+        <div class="section-head">
+          <h2>Current Folder</h2>
+          <span id="item-count" class="count">0</span>
+        </div>
+        <div id="items" class="list" data-empty="No files"></div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <h2>Actions</h2>
+        </div>
+        <div class="panel-body">
+          <label class="field">
+            <span class="label">Folder</span>
+            <input id="path-input" value="/" autocomplete="off">
+          </label>
+          <div class="button-row">
+            <button id="open-folder" type="button">Open</button>
+            <button id="refresh" type="button">Refresh</button>
+          </div>
+
+          <label class="field">
+            <span class="label">Upload File</span>
+            <input id="file-input" type="file">
+          </label>
+          <button id="upload" type="button">Upload</button>
+
+          <label class="field">
+            <span class="label">New Folder</span>
+            <input id="folder-input" placeholder="articles/new-draft" autocomplete="off">
+          </label>
+          <button id="create-folder" type="button">Create Folder</button>
+
+          <div id="message" class="message" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="row-template">
+    <a class="row">
+      <span class="kind"></span>
+      <span class="name"></span>
+      <span class="meta"></span>
+    </a>
+  </template>
+
+  <script src="/asb/manage.js"></script>
+</body>
+</html>

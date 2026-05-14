@@ -78,7 +78,9 @@ nav a {
 }
 
 nav a:hover,
-nav a:focus-visible {
+nav a:focus-visible,
+button:hover,
+button:focus-visible {
   color: var(--accent);
   border-color: var(--accent);
 }
@@ -209,6 +211,77 @@ main {
   color: #8f1d1d;
 }
 
+.panel-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.7fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel-body {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+}
+
+input,
+button {
+  min-height: 2.35rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+
+input {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+}
+
+input[type="file"] {
+  padding: 0.45rem;
+}
+
+button {
+  padding: 0.42rem 0.74rem;
+  cursor: pointer;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.message {
+  min-height: 1.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.message.error {
+  padding: 0;
+}
+
+.recent-time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 @media (max-width: 680px) {
   .topbar {
     align-items: start;
@@ -229,9 +302,12 @@ main {
     gap: 0.55rem;
   }
 
+  .panel-grid {
+    grid-template-columns: 1fr;
+  }
+
   .meta {
     grid-column: 2;
     font-size: 0.82rem;
   }
 }
-
