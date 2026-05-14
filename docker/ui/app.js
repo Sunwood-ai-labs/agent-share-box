@@ -117,14 +117,25 @@ function renderRows(data) {
 
   files.forEach((item) => {
     const name = decodeURIComponent(item.href || "");
+    const href = fileHref(state.path, name);
     filesEl.append(row({
       className: "file",
       kind: item.ext || "file",
       name,
       meta: formatSize(item.sz),
-      href: `${browsePath(state.path)}${encodeURIComponent(name)}?v`,
+      href,
     }));
   });
+}
+
+function fileHref(path, name) {
+  const encodedName = encodeURIComponent(name);
+  const encodedPath = path === "/" ? "/" : path;
+  if (name.toLowerCase().endsWith(".md")) {
+    return `/view${encodedPath}${encodedName}`;
+  }
+
+  return `${browsePath(path)}${encodedName}?v`;
 }
 
 function row({ className, kind, name, meta, href }) {
