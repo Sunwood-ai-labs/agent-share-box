@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Share Box"
+  short_description: "Set up and operate lightweight LAN file sharing for agents"
+  default_prompt: "Use $agent-share-box to deploy or troubleshoot the LAN file-sharing server and macOS client mount."
